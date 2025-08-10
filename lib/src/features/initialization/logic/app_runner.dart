@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:todo_youtube/src/common/bloc_observer.dart';
 import 'package:todo_youtube/src/features/initialization/widget/failed_app_widget.dart';
-import 'package:todo_youtube/src/features/initialization/widget/root_context.dart';
-
+import 'package:todo_youtube/src/features/initialization/widget/material_context.dart';
 import 'composition_root.dart';
 
 class AppRunner {
@@ -37,7 +36,7 @@ class AppRunner {
         try {
           final dependencies = await createDependencies(logger: logger);
 
-          runApp(RootContext(dependencyContainer: dependencies));
+          runApp(MaterialContext(dependencyContainer: dependencies));
         } catch (error, stackTrace) {
           runApp(FailedAppWidget());
           Error.throwWithStackTrace(error, stackTrace);

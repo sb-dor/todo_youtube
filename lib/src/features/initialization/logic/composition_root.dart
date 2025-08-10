@@ -1,13 +1,46 @@
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
+import 'package:todo_youtube/src/common/database/app_database.dart';
+import 'package:todo_youtube/src/common/database/database_helpers/todos_database_helper.dart';
+import 'package:todo_youtube/src/common/internet_connection_checker.dart';
 import 'package:todo_youtube/src/features/initialization/model/dependency_container.dart';
+import 'package:todo_youtube/src/features/todos/data/todos_datasource.dart';
+import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
 
 // Future<CompositionRoot> compositionRoot() async {
 //
 // }
 
 Future<DependencyContainer> createDependencies({required Logger logger}) async {
-  return DependencyContainer(logger: logger);
+  final appDatabase = AppDatabase.custom();
+
+  final internetConnectionChecker = InternetConnectionChecker();
+
+  final todosRepository = createTodosRepository(
+    appDatabase: appDatabase,
+    logger: logger,
+    internetConnectionChecker: internetConnectionChecker,
+  );
+
+  return DependencyContainer(
+    logger: logger,
+    appDatabase: appDatabase,
+    todosRepository: todosRepository,
+  );
+}
+
+ITodosRepository createTodosRepository({
+  required AppDatabase appDatabase,
+  required Logger logger,
+  required InternetConnectionChecker internetConnectionChecker,
+}) {
+  final todosDatabaseHelper = TodosDatabaseHelper(appDatabase: appDatabase, logger: logger);
+  final todosLocalDatasource = TodosDatasourceLocalImpl(todosDatabaseHelper: todosDatabaseHelper);
+  final todosRemoteDatasource = TodosDatasourceRemoteImpl();
+  return TodosRepositoryImpl(
+    todoRemoteDatasource: todosRemoteDatasource,
+    todoLocalDatasource: todosLocalDatasource,
+    internetConnectionChecker: internetConnectionChecker,
+  );
 }
 
 Logger createAppLogger({required LogFilter logFilter}) {

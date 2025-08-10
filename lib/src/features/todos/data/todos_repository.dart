@@ -7,8 +7,8 @@ abstract interface class ITodosRepository {
   Future<List<Todo>> todos();
 }
 
-final class TodosRepository implements ITodosRepository {
-  TodosRepository({
+final class TodosRepositoryImpl implements ITodosRepository {
+  TodosRepositoryImpl({
     required ITodosDatasource todoRemoteDatasource,
     required ITodosDatasource todoLocalDatasource,
     required InternetConnectionChecker internetConnectionChecker,
