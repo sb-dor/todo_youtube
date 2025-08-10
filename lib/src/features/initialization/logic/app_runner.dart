@@ -12,7 +12,7 @@ import 'composition_root.dart';
 
 class AppRunner {
   Future<void> run() async {
-    final logger = createAppLogger(logFilter: kReleaseMode ? DevelopmentFilter() : NoOpLogFilter());
+    final logger = createAppLogger(logFilter: kReleaseMode ? NoOpLogFilter() : DevelopmentFilter());
     //
     await runZonedGuarded(
       () async {

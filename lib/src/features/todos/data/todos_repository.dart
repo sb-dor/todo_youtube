@@ -5,6 +5,12 @@ import 'package:todo_youtube/src/features/todos/models/todo.dart';
 abstract interface class ITodosRepository {
   //
   Future<List<Todo>> todos();
+
+  Future<bool> createTodo(final Todo todo);
+
+  Future<bool> deleteTodo(final String id);
+
+  Future<bool> updateTodo(final Todo todo);
 }
 
 final class TodosRepositoryImpl implements ITodosRepository {
@@ -22,10 +28,37 @@ final class TodosRepositoryImpl implements ITodosRepository {
 
   @override
   Future<List<Todo>> todos() async {
-    if (await _internetConnectionChecker.hasAccessToInternet()) {
-      return _todoRemoteDatasource.todos();
-    } else {
-      return _todoLocalDatasource.todos();
-    }
+    // if (await _internetConnectionChecker.hasAccessToInternet()) {
+    //   return _todoRemoteDatasource.todos();
+    // } else {
+    return _todoLocalDatasource.todos();
+    // }
+  }
+
+  @override
+  Future<bool> createTodo(Todo todo) {
+    // if (await _internetConnectionChecker.hasAccessToInternet()) {
+    //   return _todoRemoteDatasource.createTodo();
+    // } else {
+    return _todoLocalDatasource.createTodo(todo);
+    // }
+  }
+
+  @override
+  Future<bool> deleteTodo(String id) {
+    // if (await _internetConnectionChecker.hasAccessToInternet()) {
+    //   return _todoRemoteDatasource.deleteTodo();
+    // } else {
+    return _todoLocalDatasource.deleteTodo(id);
+    // }
+  }
+
+  @override
+  Future<bool> updateTodo(Todo todo) {
+    // if (await _internetConnectionChecker.hasAccessToInternet()) {
+    //   return _todoRemoteDatasource.updateTodo();
+    // } else {
+    return _todoLocalDatasource.updateTodo(todo);
+    // }
   }
 }

@@ -10,6 +10,11 @@ sealed class TodosState {
   const factory TodosState.error() = TodosErrorState;
 
   const factory TodosState.completed(final List<Todo> todos) = TodosCompletedState;
+
+  int get getRemainingTodosLength => switch (this) {
+    final TodosCompletedState state => state.todos.where((el) => !el.isDone).toList().length,
+    _ => 0,
+  };
 }
 
 final class TodosInitialState extends TodosState {

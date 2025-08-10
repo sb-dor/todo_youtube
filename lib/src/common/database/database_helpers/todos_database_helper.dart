@@ -25,7 +25,7 @@ class TodosDatabaseHelper {
         .toList();
   }
 
-  Future<bool> addTodo(Todo todo) async {
+  Future<bool> createTodo(Todo todo) async {
     await _appDatabase
         .into(_appDatabase.todosTable)
         .insert(
@@ -36,6 +36,16 @@ class TodosDatabaseHelper {
             createdAt: todo.createdAt,
           ),
         );
+
+    return true;
+  }
+
+  Future<bool> updateTodo(Todo todo) async {
+    await (_appDatabase.update(
+      _appDatabase.todosTable,
+    )..where((el) => el.id.equals(todo.id))).write(
+      TodosTableData(id: todo.id, todo: todo.todo, isDone: todo.isDone, createdAt: todo.createdAt),
+    );
 
     return true;
   }
