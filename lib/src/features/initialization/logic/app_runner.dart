@@ -43,7 +43,7 @@ class AppRunner {
         }
       },
       (error, stackTrace) {
-        logger.log(Level.error, "Error:", error: error, stackTrace: stackTrace);
+        logger.log(Level.error, "Error zone:", error: error, stackTrace: stackTrace);
         //
         if (kReleaseMode) {
           // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
