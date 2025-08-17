@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 
@@ -39,11 +40,13 @@ class BlocObserverManager extends BlocObserver {
       ..writeln(error.toString());
 
     // you can also send bloc errors to server here
-
     _logger.log(Level.error, logMessage.toString(), error: error, stackTrace: stackTrace);
 
-    // Avoid calling super.onError to prevent propagation
-    // super.onError(bloc, error, stackTrace);
+    if (kReleaseMode) {
+      // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+    }
+
+    super.onError(bloc, error, stackTrace);
   }
 
   @override

@@ -41,7 +41,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       emit(TodosState.completed(todos));
     } catch (error, stackTrace) {
       emit(TodosState.error());
-      Error.throwWithStackTrace(error, stackTrace);
+      addError(error, stackTrace);
     }
   }
 
