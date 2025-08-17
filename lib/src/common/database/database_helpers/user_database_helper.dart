@@ -12,6 +12,19 @@ class UserDatabaseHelper {
     required final String email,
     final String? surname,
   }) async {
+    final userWhere = (_appDatabase.select(_appDatabase.userTable)
+      ..where((el) => el.email.contains(email) & el.name.contains(name)));
+
+    if (surname != null) {
+      userWhere.where((el) => el.surname.contains(surname));
+    }
+
+    final user = await userWhere.getSingleOrNull();
+
+    if (user != null) {
+      return UserModel(id: user.id, name: user.name, email: user.email, surname: user.surname);
+    }
+
     final userTableData = UserTableCompanion(
       name: Value(name),
       email: Value(email),
@@ -28,7 +41,8 @@ class UserDatabaseHelper {
     );
   }
 
-  Future<bool> deleteUse(int id) async {
+  Future<bool> deleteUser(int id) async {
+    await (_appDatabase.delete(_appDatabase.todosTable)..where((el) => el.userId.equals(id))).go();
     await (_appDatabase.delete(_appDatabase.userTable)..where((el) => el.id.equals(id))).go();
 
     return true;

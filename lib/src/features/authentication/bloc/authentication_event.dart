@@ -9,6 +9,8 @@ sealed class AuthenticationEvent {
     final String? surname,
   }) = _Authentication$LoginEvent;
 
+  const factory AuthenticationEvent.deleteUser() = _Authentication$DeleteUserEvent;
+
   const factory AuthenticationEvent.logout() = _Authentication$LogoutEvent;
 }
 
@@ -18,6 +20,10 @@ final class _Authentication$LoginEvent extends AuthenticationEvent {
   final String name;
   final String email;
   final String? surname;
+}
+
+final class _Authentication$DeleteUserEvent extends AuthenticationEvent {
+  const _Authentication$DeleteUserEvent();
 }
 
 final class _Authentication$LogoutEvent extends AuthenticationEvent {

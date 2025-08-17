@@ -4,7 +4,7 @@ import 'package:todo_youtube/src/features/todos/models/todo.dart';
 
 abstract interface class ITodosRepository {
   //
-  Future<List<Todo>> todos();
+  Future<List<Todo>> todos(int userId);
 
   Future<bool> createTodo(final Todo todo);
 
@@ -27,11 +27,11 @@ final class TodosRepositoryImpl implements ITodosRepository {
   final InternetConnectionChecker _internetConnectionChecker;
 
   @override
-  Future<List<Todo>> todos() async {
+  Future<List<Todo>> todos(int userId) async {
     // if (await _internetConnectionChecker.hasAccessToInternet()) {
     //   return _todoRemoteDatasource.todos();
     // } else {
-    return _todoLocalDatasource.todos();
+    return _todoLocalDatasource.todos(userId);
     // }
   }
 

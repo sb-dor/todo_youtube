@@ -3,7 +3,7 @@ import 'package:todo_youtube/src/features/todos/models/todo.dart';
 
 abstract interface class ITodosDatasource {
   //
-  Future<List<Todo>> todos();
+  Future<List<Todo>> todos(int userId);
 
   Future<bool> createTodo(final Todo todo);
 
@@ -14,7 +14,7 @@ abstract interface class ITodosDatasource {
 
 final class TodosDatasourceRemoteImpl implements ITodosDatasource {
   @override
-  Future<List<Todo>> todos() => Future.value(<Todo>[]);
+  Future<List<Todo>> todos(int userId) => Future.value(<Todo>[]);
 
   @override
   Future<bool> createTodo(Todo todo) => Future.value(false);
@@ -33,7 +33,7 @@ final class TodosDatasourceLocalImpl implements ITodosDatasource {
   final TodosDatabaseHelper _todosDatabaseHelper;
 
   @override
-  Future<List<Todo>> todos() => _todosDatabaseHelper.todos();
+  Future<List<Todo>> todos(int userId) => _todosDatabaseHelper.todos(userId);
 
   @override
   Future<bool> createTodo(final Todo todo) => _todosDatabaseHelper.createTodo(todo);

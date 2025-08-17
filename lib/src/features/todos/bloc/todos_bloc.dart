@@ -35,7 +35,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     try {
       emit(TodosState.inProgress());
 
-      final todos = await _iTodosRepository.todos();
+      final todos = await _iTodosRepository.todos(event.userModel.id);
 
       _logger.log(Level.debug, "Count of coming todos: ${todos.length}");
 
@@ -48,14 +48,18 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   void _todosCreateTodoEvent(_TodosCreateTodoEvent event, Emitter<TodosState> emit) async {
     if (state is! TodosCompletedState) return;
+    final currentState = state as TodosCompletedState;
 
-    final newTodo = Todo(todo: event.todo, isDone: false, createdAt: DateTime.now());
+    final newTodo = Todo(
+      todo: event.todo,
+      isDone: false,
+      userId: currentState.userModel.id,
+      createdAt: DateTime.now(),
+    );
 
     final createdTodo = await _iTodosRepository.createTodo(newTodo);
 
     if (createdTodo) {
-      final currentState = state as TodosCompletedState;
-
       final todos = List.of(currentState.todos);
 
       todos.add(newTodo);

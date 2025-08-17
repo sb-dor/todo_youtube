@@ -10,6 +10,8 @@ abstract interface class IAuthenticationRepository {
     final String? surname,
   });
 
+  Future<bool> deleteUser(int id);
+
   Future<bool> logout(int id);
 }
 
@@ -32,6 +34,15 @@ final class AuthenticationRepositoryImpl implements IAuthenticationRepository {
     //   return _authenticationRemoteDatasource.login(name: name, email: email, surname: surname);
     // } else {
     return _authenticationLocalDatasource.login(name: name, email: email, surname: surname);
+    // }
+  }
+
+  @override
+  Future<bool> deleteUser(int id) async {
+    // if (await _internetConnectionChecker.hasAccessToInternet()) {
+    //   return _authenticationRemoteDatasource.deleteUser(id);
+    // } else {
+    return _authenticationLocalDatasource.deleteUser(id);
     // }
   }
 

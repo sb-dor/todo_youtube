@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_youtube/src/features/authentication/bloc/authentication_bloc.dart';
 import 'package:todo_youtube/src/features/authentication/model/user_model.dart';
+import 'package:todo_youtube/src/features/authentication/widgets/authentication_widget.dart';
 import 'package:todo_youtube/src/features/initialization/widget/dependencies_scope.dart';
 import 'package:todo_youtube/src/features/todos/bloc/todos_bloc.dart';
 import 'package:todo_youtube/src/features/todos/widgets/todo_widget.dart';
@@ -16,12 +18,14 @@ class TodosWidget extends StatefulWidget {
 
 class _TodosWidgetState extends State<TodosWidget> {
   late final TodosBloc _todosBloc;
+  late final AuthenticationBloc _authenticationBloc;
   final TextEditingController _todoTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     final dependenciesScope = DependenciesScope.of(context);
+    _authenticationBloc = dependenciesScope.authenticationBloc;
     _todosBloc = TodosBloc(
       iTodosRepository: dependenciesScope.todosRepository,
       logger: dependenciesScope.logger,
@@ -43,6 +47,38 @@ class _TodosWidgetState extends State<TodosWidget> {
         scrolledUnderElevation: 0.0,
         elevation: 0.0,
         title: Text("Your todo app", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        actions: [
+          BlocConsumer<AuthenticationBloc, AuthenticationState>(
+            bloc: _authenticationBloc,
+            listener: (context, state) {
+              if (state is Authentication$ErrorState || state is Authentication$InitialState) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AuthenticationWidget()),
+                  (_) => false,
+                );
+              }
+            },
+            builder: (context, state) {
+              switch (state) {
+                case Authentication$AuthenticatedState():
+                  return IconButton(
+                    onPressed: () {
+                      _authenticationBloc.add(AuthenticationEvent.logout());
+                    },
+                    icon: Icon(Icons.logout),
+                  );
+                case Authentication$InProgressState():
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: SizedBox(width: 15, height: 15, child: CircularProgressIndicator()),
+                  );
+                case _:
+                  return SizedBox.shrink();
+              }
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<TodosBloc, TodosState>(
         bloc: _todosBloc,

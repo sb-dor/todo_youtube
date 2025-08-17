@@ -10,8 +10,10 @@ class TodosDatabaseHelper {
   final AppDatabase _appDatabase;
   final Logger _logger;
 
-  Future<List<Todo>> todos() async {
-    final databaseTodos = await _appDatabase.select(_appDatabase.todosTable).get();
+  Future<List<Todo>> todos(int userId) async {
+    final databaseTodos = await (_appDatabase.select(
+      _appDatabase.todosTable,
+    )..where((el) => el.userId.equals(userId))).get();
 
     return databaseTodos
         .map(
@@ -33,6 +35,7 @@ class TodosDatabaseHelper {
             id: todo.id,
             todo: todo.todo,
             isDone: todo.isDone,
+            userId: todo.userId,
             createdAt: todo.createdAt,
           ),
         );
@@ -44,7 +47,13 @@ class TodosDatabaseHelper {
     await (_appDatabase.update(
       _appDatabase.todosTable,
     )..where((el) => el.id.equals(todo.id))).write(
-      TodosTableData(id: todo.id, todo: todo.todo, isDone: todo.isDone, createdAt: todo.createdAt),
+      TodosTableData(
+        id: todo.id,
+        todo: todo.todo,
+        isDone: todo.isDone,
+        userId: todo.userId,
+        createdAt: todo.createdAt,
+      ),
     );
 
     return true;

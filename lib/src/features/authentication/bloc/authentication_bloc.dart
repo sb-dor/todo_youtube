@@ -19,6 +19,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<AuthenticationEvent>(
       (event, emit) => switch (event) {
         final _Authentication$LoginEvent event => _authentication$LoginEvent(event, emit),
+        final _Authentication$DeleteUserEvent event => _authentication$DeleteUserEvent(event, emit),
         final _Authentication$LogoutEvent event => _authentication$LogoutEvent(event, emit),
       },
     );
@@ -44,6 +45,28 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         emit(AuthenticationState.authenticated(userModel));
       } else {
         emit(AuthenticationState.initial());
+      }
+    } on Object catch (error, stackTrace) {
+      emit(AuthenticationState.error());
+      addError(error, stackTrace);
+    }
+  }
+
+  void _authentication$DeleteUserEvent(
+    _Authentication$DeleteUserEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    try {
+      if (state is! Authentication$AuthenticatedState) return;
+
+      final currentState = state as Authentication$AuthenticatedState;
+
+      final logout = await _iAuthenticationRepository.deleteUser(currentState.userModel.id);
+
+      if (logout) {
+        emit(AuthenticationState.initial());
+      } else {
+        emit(AuthenticationState.error());
       }
     } on Object catch (error, stackTrace) {
       emit(AuthenticationState.error());

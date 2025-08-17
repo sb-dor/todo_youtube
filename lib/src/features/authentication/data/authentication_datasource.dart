@@ -9,6 +9,8 @@ abstract interface class IAuthenticationDatasource {
     final String? surname,
   });
 
+  Future<bool> deleteUser(int id);
+
   Future<bool> logout(int id);
 }
 
@@ -16,6 +18,9 @@ final class AuthenticationRemoteDatasource implements IAuthenticationDatasource 
   @override
   Future<UserModel?> login({required String name, required String email, String? surname}) =>
       Future.value(null);
+
+  @override
+  Future<bool> deleteUser(int id) => Future.value(false);
 
   @override
   Future<bool> logout(int id) => Future.value(false);
@@ -32,5 +37,11 @@ final class AuthenticationLocalDatasource implements IAuthenticationDatasource {
       _userDatabaseHelper.createUser(name: name, email: email, surname: surname);
 
   @override
-  Future<bool> logout(int id) => _userDatabaseHelper.deleteUse(id);
+  Future<bool> deleteUser(int id) => _userDatabaseHelper.deleteUser(id);
+
+  @override
+  Future<bool> logout(int id) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return true;
+  }
 }
