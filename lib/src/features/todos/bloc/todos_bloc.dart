@@ -39,7 +39,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       _logger.log(Level.debug, "Count of coming todos: ${todos.length}");
 
       emit(TodosState.completed(todos));
-    } catch (error, stackTrace) {
+    } on Object catch (error, stackTrace) {
       emit(TodosState.error());
       addError(error, stackTrace);
     }
