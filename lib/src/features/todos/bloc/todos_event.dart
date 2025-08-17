@@ -3,7 +3,7 @@ part of "todos_bloc.dart";
 sealed class TodosEvent {
   const TodosEvent();
 
-  const factory TodosEvent.load() = _TodosLoadEvent;
+  const factory TodosEvent.load(final UserModel userModel) = _TodosLoadEvent;
 
   const factory TodosEvent.createTodo(final String todo) = _TodosCreateTodoEvent;
 
@@ -13,7 +13,9 @@ sealed class TodosEvent {
 }
 
 final class _TodosLoadEvent extends TodosEvent {
-  const _TodosLoadEvent();
+  const _TodosLoadEvent(this.userModel);
+
+  final UserModel userModel;
 }
 
 final class _TodosCreateTodoEvent extends TodosEvent {

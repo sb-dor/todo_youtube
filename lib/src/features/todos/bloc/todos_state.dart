@@ -9,7 +9,8 @@ sealed class TodosState {
 
   const factory TodosState.error() = TodosErrorState;
 
-  const factory TodosState.completed(final List<Todo> todos) = TodosCompletedState;
+  const factory TodosState.completed(final List<Todo> todos, final UserModel model) =
+      TodosCompletedState;
 
   int get getRemainingTodosLength => switch (this) {
     final TodosCompletedState state => state.todos.where((el) => !el.isDone).toList().length,
@@ -30,7 +31,8 @@ final class TodosErrorState extends TodosState {
 }
 
 final class TodosCompletedState extends TodosState {
-  const TodosCompletedState(this.todos);
+  const TodosCompletedState(this.todos, this.userModel);
 
   final List<Todo> todos;
+  final UserModel userModel;
 }

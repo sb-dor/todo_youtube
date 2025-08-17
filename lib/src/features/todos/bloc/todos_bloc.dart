@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:todo_youtube/src/features/authentication/model/user_model.dart';
 import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
 import 'package:todo_youtube/src/features/todos/models/todo.dart';
 
@@ -38,7 +39,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
       _logger.log(Level.debug, "Count of coming todos: ${todos.length}");
 
-      emit(TodosState.completed(todos));
+      emit(TodosState.completed(todos, event.userModel));
     } on Object catch (error, stackTrace) {
       emit(TodosState.error());
       addError(error, stackTrace);
@@ -53,11 +54,13 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     final createdTodo = await _iTodosRepository.createTodo(newTodo);
 
     if (createdTodo) {
-      final todos = List.of((state as TodosCompletedState).todos);
+      final currentState = state as TodosCompletedState;
+
+      final todos = List.of(currentState.todos);
 
       todos.add(newTodo);
 
-      emit(TodosState.completed(todos));
+      emit(TodosState.completed(todos, currentState.userModel));
     }
   }
 
@@ -67,11 +70,13 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     final deleteTodo = await _iTodosRepository.deleteTodo(event.todo.id);
 
     if (deleteTodo) {
-      final todos = List.of((state as TodosCompletedState).todos);
+      final currentState = state as TodosCompletedState;
+
+      final todos = List.of(currentState.todos);
 
       todos.removeWhere((el) => el.id == event.todo.id);
 
-      emit(TodosState.completed(todos));
+      emit(TodosState.completed(todos, currentState.userModel));
     }
   }
 
@@ -83,13 +88,15 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     final update = await _iTodosRepository.updateTodo(updatedTodo);
 
     if (update) {
-      final todos = List.of((state as TodosCompletedState).todos);
+      final currentState = state as TodosCompletedState;
+
+      final todos = List.of(currentState.todos);
 
       final index = todos.indexWhere((el) => el.id == updatedTodo.id);
 
       if (index != -1) {
         todos[index] = updatedTodo;
-        emit(TodosState.completed(todos));
+        emit(TodosState.completed(todos, currentState.userModel));
       }
     }
   }

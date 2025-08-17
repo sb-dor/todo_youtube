@@ -7,5 +7,7 @@ class TodosTable extends Table {
 
   BoolColumn get isDone => boolean().named('is_done')();
 
+  IntColumn get userId => integer().named("user_id").nullable()();
+
   DateTimeColumn get createdAt => dateTime()();
 }

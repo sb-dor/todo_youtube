@@ -24,7 +24,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -33,6 +33,9 @@ class AppDatabase extends _$AppDatabase {
       onUpgrade: stepByStep(
         from1To2: (migration, schema) async {
           await migration.createTable(schema.userTable);
+        },
+        from2To3: (migration, Schema3 schema) async {
+          await migration.addColumn(schema.todosTable, schema.todosTable.userId);
         },
       ),
     );

@@ -7,6 +7,7 @@ class Todo {
     required this.todo,
     required this.isDone,
     required this.createdAt,
+    this.userId,
     this.updatedAt,
   }) : id = tempId ?? const Uuid().v4();
 
@@ -23,6 +24,7 @@ class Todo {
   final bool isDone;
   final String todo;
   final DateTime createdAt;
+  final int? userId;
   final DateTime? updatedAt;
 
   Map<String, Object?> toJson() {
@@ -30,6 +32,7 @@ class Todo {
       "id": id,
       "is_done": isDone,
       "todo": todo,
+      "user_id": userId,
       "created_at": createdAt.toLocal().toIso8601String(),
     };
   }
@@ -38,12 +41,14 @@ class Todo {
     String? todo,
     bool? isDone,
     DateTime? createdAt,
+    ValueGetter<int?>? userId,
     ValueGetter<DateTime?>? updatedAt, // Todo.copyWith(updatedAt: () => null)
   }) => Todo(
     tempId: id,
     todo: todo ?? this.todo,
     isDone: isDone ?? this.isDone,
     createdAt: this.createdAt,
+    userId: userId != null ? userId() : this.userId,
     updatedAt: updatedAt != null ? updatedAt() : this.updatedAt,
   );
 }

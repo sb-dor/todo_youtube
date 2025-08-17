@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_youtube/src/features/authentication/model/user_model.dart';
 import 'package:todo_youtube/src/features/initialization/widget/dependencies_scope.dart';
 import 'package:todo_youtube/src/features/todos/bloc/todos_bloc.dart';
 import 'package:todo_youtube/src/features/todos/widgets/todo_widget.dart';
 
 class TodosWidget extends StatefulWidget {
-  const TodosWidget({super.key});
+  const TodosWidget({super.key, required this.userModel});
+
+  final UserModel userModel;
 
   @override
   State<TodosWidget> createState() => _TodosWidgetState();
@@ -23,7 +26,7 @@ class _TodosWidgetState extends State<TodosWidget> {
       iTodosRepository: dependenciesScope.todosRepository,
       logger: dependenciesScope.logger,
     );
-    _todosBloc.add(TodosEvent.load());
+    _todosBloc.add(TodosEvent.load(widget.userModel));
   }
 
   @override
@@ -45,7 +48,7 @@ class _TodosWidgetState extends State<TodosWidget> {
         bloc: _todosBloc,
         builder: (context, state) {
           return RefreshIndicator(
-            onRefresh: () async => _todosBloc.add(TodosEvent.load()),
+            onRefresh: () async => _todosBloc.add(TodosEvent.load(widget.userModel)),
             child: CustomScrollView(
               slivers: [
                 SliverPadding(
@@ -85,7 +88,7 @@ class _TodosWidgetState extends State<TodosWidget> {
                     child: Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          _todosBloc.add(TodosEvent.load());
+                          _todosBloc.add(TodosEvent.load(widget.userModel));
                         },
                         child: Text("Error state - Refresh"),
                       ),

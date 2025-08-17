@@ -1,7 +1,11 @@
 import 'package:logger/logger.dart';
 import 'package:todo_youtube/src/common/database/app_database.dart';
 import 'package:todo_youtube/src/common/database/database_helpers/todos_database_helper.dart';
+import 'package:todo_youtube/src/common/database/database_helpers/user_database_helper.dart';
 import 'package:todo_youtube/src/common/internet_connection_checker.dart';
+import 'package:todo_youtube/src/features/authentication/bloc/authentication_bloc.dart';
+import 'package:todo_youtube/src/features/authentication/data/authentication_datasource.dart';
+import 'package:todo_youtube/src/features/authentication/data/authentication_repository.dart';
 import 'package:todo_youtube/src/features/initialization/model/dependency_container.dart';
 import 'package:todo_youtube/src/features/todos/data/todos_datasource.dart';
 import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
@@ -21,10 +25,17 @@ Future<DependencyContainer> createDependencies({required Logger logger}) async {
     internetConnectionChecker: internetConnectionChecker,
   );
 
+  final authenticationBlocV = authenticationBloc(
+    appDatabase: appDatabase,
+    logger: logger,
+    internetConnectionChecker: internetConnectionChecker,
+  );
+
   return DependencyContainer(
     logger: logger,
     appDatabase: appDatabase,
     todosRepository: todosRepository,
+    authenticationBloc: authenticationBlocV,
   );
 }
 
@@ -41,6 +52,26 @@ ITodosRepository createTodosRepository({
     todoLocalDatasource: todosLocalDatasource,
     internetConnectionChecker: internetConnectionChecker,
   );
+}
+
+AuthenticationBloc authenticationBloc({
+  required AppDatabase appDatabase,
+  required Logger logger,
+  required InternetConnectionChecker internetConnectionChecker,
+}) {
+  final userDatabaseHelper = UserDatabaseHelper(appDatabase);
+  final IAuthenticationDatasource authenticationRemoteDatasource = AuthenticationRemoteDatasource();
+  final IAuthenticationDatasource authenticationLocalDatasource = AuthenticationLocalDatasource(
+    userDatabaseHelper: userDatabaseHelper,
+  );
+
+  final IAuthenticationRepository repository = AuthenticationRepositoryImpl(
+    authenticationRemoteDatasource: authenticationRemoteDatasource,
+    authenticationLocalDatasource: authenticationLocalDatasource,
+    internetConnectionChecker: internetConnectionChecker,
+  );
+
+  return AuthenticationBloc(iAuthenticationRepository: repository, logger: logger);
 }
 
 Logger createAppLogger({required LogFilter logFilter}) {
