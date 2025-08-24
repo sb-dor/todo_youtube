@@ -21,6 +21,7 @@ class TodosDatabaseHelper {
             tempId: tableData.id,
             todo: tableData.todo,
             isDone: tableData.isDone,
+            userId: tableData.userId,
             createdAt: tableData.createdAt,
           ),
         )

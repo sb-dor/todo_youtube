@@ -7,7 +7,7 @@ class Todo {
     required this.todo,
     required this.isDone,
     required this.createdAt,
-    this.userId,
+    required this.userId,
     this.updatedAt,
   }) : id = tempId ?? const Uuid().v4();
 
@@ -16,6 +16,7 @@ class Todo {
       todo: json['todo'] as String,
       isDone: json['is_done'] as bool,
       tempId: json['id'] as String,
+      userId: json['user_id'] as int,
       createdAt: json['created_at'] as DateTime,
     );
   }
