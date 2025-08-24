@@ -14,7 +14,9 @@ void main() {
 
   setUp(() {
     final logger = Logger();
-    appDatabase = AppDatabase(drift.DatabaseConnection(NativeDatabase.memory()));
+    appDatabase = AppDatabase(
+      drift.DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true),
+    );
     todosDatabaseHelper = TodosDatabaseHelper(appDatabase: appDatabase, logger: logger);
   });
 
