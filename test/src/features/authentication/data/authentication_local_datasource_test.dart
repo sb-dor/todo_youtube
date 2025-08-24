@@ -76,7 +76,7 @@ void main() {
       test('method should successfully return true after logout', () async {
         //
         final logout = await localDatasource.logout(fakeUser.id);
-        
+
         expect(logout, isTrue);
       });
     });
