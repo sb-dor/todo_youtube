@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:todo_youtube/src/common/database/database_helpers/user_database_helper.dart';
 import 'package:todo_youtube/src/features/authentication/model/user_model.dart';
 
@@ -41,7 +42,7 @@ final class AuthenticationLocalDatasource implements IAuthenticationDatasource {
 
   @override
   Future<bool> logout(int id) async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 3));
     return true;
   }
 }
