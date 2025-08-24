@@ -1,16 +1,18 @@
-# todo_youtube
+# Simple App – Clean Architecture + BLoC
 
-A new Flutter project.
+This is a **simple Flutter app** built to demonstrate how to combine  
+**Clean Architecture principles** with **BLoC state management** in a real project.
 
-## Getting Started
+## What’s Inside
+- **BLoC** for state management
+- **Clean Architecture** 
+- **Drift** for local database 
+- **Unit & migration tests**
 
-This project is a starting point for a Flutter application.
+## Goals
+- Show a **clear folder structure** for Clean Architecture in Flutter
+- Demonstrate how to use **BLoC pattern**
+- Provide a **reference project** for my YouTube viewers
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## YouTube
+👉 Watch the full tutorial here: [YouTube Link](https://youtu.be/qZJ-pCOOpXk?si=-OgMqTzEpYu7_Cta)  
