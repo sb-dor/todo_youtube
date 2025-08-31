@@ -40,13 +40,13 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         bloc: _authenticationBloc,
         listener: (context, state) {
-          if (state is Authentication$AuthenticatedState) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => TodosWidget(userModel: state.userModel)),
-              (_) => false,
-            );
-          }
+          // if (state is Authentication$AuthenticatedState) {
+          //   Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => TodosWidget(userModel: state.userModel)),
+          //     (_) => false,
+          //   );
+          // }
         },
         builder: (context, state) {
           return CustomScrollView(
@@ -58,10 +58,12 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                     child: Column(
                       children: [
                         TextField(
+                          key: ValueKey<String>("name_text_field"),
                           controller: _nameController,
                           decoration: InputDecoration(hintText: "Name"),
                         ),
                         TextField(
+                          key: ValueKey<String>("email_text_field"),
                           controller: _emailController,
                           decoration: InputDecoration(hintText: "Email"),
                         ),
@@ -70,6 +72,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                           decoration: InputDecoration(hintText: "Surname"),
                         ),
                         ElevatedButton(
+                          key: ValueKey<String>("login_button"),
                           onPressed: () {
                             final name = _nameController.text.trim();
                             final email = _emailController.text.trim();
@@ -105,7 +108,12 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                   ),
                 ),
                 Authentication$AuthenticatedState() => SliverFillRemaining(
-                  child: Center(child: Text("Authenticated!")),
+                  child: Center(
+                    child: Text(
+
+                      "Authenticated!",
+                    ),
+                  ),
                 ),
               },
             ],
