@@ -50,58 +50,73 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     if (state is! TodosCompletedState) return;
     final currentState = state as TodosCompletedState;
 
-    final newTodo = Todo(
-      todo: event.todo,
-      isDone: false,
-      userId: currentState.userModel.id,
-      createdAt: DateTime.now(),
-    );
+    try {
+      final newTodo = Todo(
+        todo: event.todo,
+        isDone: false,
+        userId: currentState.userModel.id,
+        createdAt: DateTime.now(),
+      );
 
-    final createdTodo = await _iTodosRepository.createTodo(newTodo);
+      final createdTodo = await _iTodosRepository.createTodo(newTodo);
 
-    if (createdTodo) {
-      final todos = List.of(currentState.todos);
+      if (createdTodo) {
+        final todos = List.of(currentState.todos);
 
-      todos.add(newTodo);
+        todos.add(newTodo);
 
-      emit(TodosState.completed(todos, currentState.userModel));
+        emit(TodosState.completed(todos, currentState.userModel));
+      }
+    } catch (error, stackTrace) {
+      emit(TodosState.error());
+      addError(error, stackTrace);
     }
   }
 
   void _todosDeleteTodoEvent(_TodosDeleteTodoEvent event, Emitter<TodosState> emit) async {
     if (state is! TodosCompletedState) return;
 
-    final deleteTodo = await _iTodosRepository.deleteTodo(event.todo.id);
+    try {
+      final deleteTodo = await _iTodosRepository.deleteTodo(event.todo.id);
 
-    if (deleteTodo) {
-      final currentState = state as TodosCompletedState;
+      if (deleteTodo) {
+        final currentState = state as TodosCompletedState;
 
-      final todos = List.of(currentState.todos);
+        final todos = List.of(currentState.todos);
 
-      todos.removeWhere((el) => el.id == event.todo.id);
+        todos.removeWhere((el) => el.id == event.todo.id);
 
-      emit(TodosState.completed(todos, currentState.userModel));
+        emit(TodosState.completed(todos, currentState.userModel));
+      }
+    } catch (error, stackTrace) {
+      emit(TodosState.error());
+      addError(error, stackTrace);
     }
   }
 
   void _todosDoneTodoEvent(_TodosDoneTodoEvent event, Emitter<TodosState> emit) async {
     if (state is! TodosCompletedState) return;
 
-    final updatedTodo = event.todo.copyWith(isDone: !event.todo.isDone);
+    try {
+      final updatedTodo = event.todo.copyWith(isDone: !event.todo.isDone);
 
-    final update = await _iTodosRepository.updateTodo(updatedTodo);
+      final update = await _iTodosRepository.updateTodo(updatedTodo);
 
-    if (update) {
-      final currentState = state as TodosCompletedState;
+      if (update) {
+        final currentState = state as TodosCompletedState;
 
-      final todos = List.of(currentState.todos);
+        final todos = List.of(currentState.todos);
 
-      final index = todos.indexWhere((el) => el.id == updatedTodo.id);
+        final index = todos.indexWhere((el) => el.id == updatedTodo.id);
 
-      if (index != -1) {
-        todos[index] = updatedTodo;
-        emit(TodosState.completed(todos, currentState.userModel));
+        if (index != -1) {
+          todos[index] = updatedTodo;
+          emit(TodosState.completed(todos, currentState.userModel));
+        }
       }
+    } catch (error, stackTrace) {
+      emit(TodosState.error());
+      addError(error, stackTrace);
     }
   }
 }
