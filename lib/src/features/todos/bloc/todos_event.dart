@@ -5,7 +5,8 @@ sealed class TodosEvent {
 
   const factory TodosEvent.load(final UserModel userModel) = _TodosLoadEvent;
 
-  const factory TodosEvent.createTodo(final String todo) = _TodosCreateTodoEvent;
+  const factory TodosEvent.createTodo(final String todo) =
+      _TodosCreateTodoEvent;
 
   const factory TodosEvent.deleteTodo(final Todo todo) = _TodosDeleteTodoEvent;
 

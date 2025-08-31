@@ -43,7 +43,9 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
           if (state is Authentication$AuthenticatedState) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => TodosWidget(userModel: state.userModel)),
+              MaterialPageRoute(
+                builder: (context) => TodosWidget(userModel: state.userModel),
+              ),
               (_) => false,
             );
           }
@@ -80,7 +82,11 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
 
                             if (name.isEmpty || email.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Fill required fields: name and email")),
+                                SnackBar(
+                                  content: Text(
+                                    "Fill required fields: name and email",
+                                  ),
+                                ),
                               );
                               return;
                             }
@@ -104,7 +110,10 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                 ),
                 Authentication$ErrorState() => SliverFillRemaining(
                   child: Center(
-                    child: TextButton(onPressed: () {}, child: Text("Try again")),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text("Try again"),
+                    ),
                   ),
                 ),
                 Authentication$AuthenticatedState() => SliverFillRemaining(

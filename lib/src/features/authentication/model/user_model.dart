@@ -2,7 +2,12 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserModel {
-  const UserModel({required this.id, required this.name, required this.email, this.surname});
+  const UserModel({
+    required this.id,
+    required this.name,
+    required this.email,
+    this.surname,
+  });
 
   final int id;
   final String name;
@@ -20,7 +25,8 @@ class UserModel {
           surname == other.surname);
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ email.hashCode ^ surname.hashCode;
+  int get hashCode =>
+      id.hashCode ^ name.hashCode ^ email.hashCode ^ surname.hashCode;
 
   @override
   String toString() {
@@ -32,7 +38,12 @@ class UserModel {
         '}';
   }
 
-  UserModel copyWith({int? id, String? name, String? email, ValueGetter<String?>? surname}) {
+  UserModel copyWith({
+    int? id,
+    String? name,
+    String? email,
+    ValueGetter<String?>? surname,
+  }) {
     return UserModel(
       id: id ?? this.id,
       name: name ?? this.name,

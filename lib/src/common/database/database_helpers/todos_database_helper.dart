@@ -3,9 +3,11 @@ import 'package:todo_youtube/src/common/database/app_database.dart';
 import 'package:todo_youtube/src/features/todos/models/todo.dart';
 
 class TodosDatabaseHelper {
-  TodosDatabaseHelper({required AppDatabase appDatabase, required Logger logger})
-    : _appDatabase = appDatabase,
-      _logger = logger;
+  TodosDatabaseHelper({
+    required AppDatabase appDatabase,
+    required Logger logger,
+  }) : _appDatabase = appDatabase,
+       _logger = logger;
 
   final AppDatabase _appDatabase;
   final Logger _logger;
@@ -61,7 +63,9 @@ class TodosDatabaseHelper {
   }
 
   Future<bool> deleteTodo(String id) async {
-    await (_appDatabase.delete(_appDatabase.todosTable)..where((el) => el.id.equals(id))).go();
+    await (_appDatabase.delete(
+      _appDatabase.todosTable,
+    )..where((el) => el.id.equals(id))).go();
 
     return true;
   }

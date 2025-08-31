@@ -1,12 +1,12 @@
 part of 'authentication_bloc.dart';
 
-
 sealed class AuthenticationState {
   const AuthenticationState();
 
   const factory AuthenticationState.initial() = Authentication$InitialState;
 
-  const factory AuthenticationState.inProgress() = Authentication$InProgressState;
+  const factory AuthenticationState.inProgress() =
+      Authentication$InProgressState;
 
   const factory AuthenticationState.error() = Authentication$ErrorState;
 

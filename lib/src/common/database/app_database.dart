@@ -35,7 +35,10 @@ class AppDatabase extends _$AppDatabase {
           await migration.createTable(schema.userTable);
         },
         from2To3: (migration, Schema3 schema) async {
-          await migration.addColumn(schema.todosTable, schema.todosTable.userId);
+          await migration.addColumn(
+            schema.todosTable,
+            schema.todosTable.userId,
+          );
         },
       ),
     );

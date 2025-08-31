@@ -1,4 +1,3 @@
-import 'package:clock/clock.dart';
 import 'package:todo_youtube/src/common/database/database_helpers/user_database_helper.dart';
 import 'package:todo_youtube/src/features/authentication/model/user_model.dart';
 
@@ -15,10 +14,14 @@ abstract interface class IAuthenticationDatasource {
   Future<bool> logout(int id);
 }
 
-final class AuthenticationRemoteDatasource implements IAuthenticationDatasource {
+final class AuthenticationRemoteDatasource
+    implements IAuthenticationDatasource {
   @override
-  Future<UserModel?> login({required String name, required String email, String? surname}) =>
-      Future.value(null);
+  Future<UserModel?> login({
+    required String name,
+    required String email,
+    String? surname,
+  }) => Future.value(null);
 
   @override
   Future<bool> deleteUser(int id) => Future.value(false);
@@ -28,14 +31,22 @@ final class AuthenticationRemoteDatasource implements IAuthenticationDatasource 
 }
 
 final class AuthenticationLocalDatasource implements IAuthenticationDatasource {
-  AuthenticationLocalDatasource({required UserDatabaseHelper userDatabaseHelper})
-    : _userDatabaseHelper = userDatabaseHelper;
+  AuthenticationLocalDatasource({
+    required UserDatabaseHelper userDatabaseHelper,
+  }) : _userDatabaseHelper = userDatabaseHelper;
 
   final UserDatabaseHelper _userDatabaseHelper;
 
   @override
-  Future<UserModel?> login({required String name, required String email, String? surname}) =>
-      _userDatabaseHelper.createUser(name: name, email: email, surname: surname);
+  Future<UserModel?> login({
+    required String name,
+    required String email,
+    String? surname,
+  }) => _userDatabaseHelper.createUser(
+    name: name,
+    email: email,
+    surname: surname,
+  );
 
   @override
   Future<bool> deleteUser(int id) => _userDatabaseHelper.deleteUser(id);

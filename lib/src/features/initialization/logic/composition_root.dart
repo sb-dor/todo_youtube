@@ -44,8 +44,13 @@ ITodosRepository createTodosRepository({
   required Logger logger,
   required InternetConnectionChecker internetConnectionChecker,
 }) {
-  final todosDatabaseHelper = TodosDatabaseHelper(appDatabase: appDatabase, logger: logger);
-  final todosLocalDatasource = TodosDatasourceLocalImpl(todosDatabaseHelper: todosDatabaseHelper);
+  final todosDatabaseHelper = TodosDatabaseHelper(
+    appDatabase: appDatabase,
+    logger: logger,
+  );
+  final todosLocalDatasource = TodosDatasourceLocalImpl(
+    todosDatabaseHelper: todosDatabaseHelper,
+  );
   final todosRemoteDatasource = TodosDatasourceRemoteImpl();
   return TodosRepositoryImpl(
     todoRemoteDatasource: todosRemoteDatasource,
@@ -60,10 +65,10 @@ AuthenticationBloc authenticationBloc({
   required InternetConnectionChecker internetConnectionChecker,
 }) {
   final userDatabaseHelper = UserDatabaseHelper(appDatabase);
-  final IAuthenticationDatasource authenticationRemoteDatasource = AuthenticationRemoteDatasource();
-  final IAuthenticationDatasource authenticationLocalDatasource = AuthenticationLocalDatasource(
-    userDatabaseHelper: userDatabaseHelper,
-  );
+  final IAuthenticationDatasource authenticationRemoteDatasource =
+      AuthenticationRemoteDatasource();
+  final IAuthenticationDatasource authenticationLocalDatasource =
+      AuthenticationLocalDatasource(userDatabaseHelper: userDatabaseHelper);
 
   final IAuthenticationRepository repository = AuthenticationRepositoryImpl(
     authenticationRemoteDatasource: authenticationRemoteDatasource,
@@ -71,7 +76,10 @@ AuthenticationBloc authenticationBloc({
     internetConnectionChecker: internetConnectionChecker,
   );
 
-  return AuthenticationBloc(iAuthenticationRepository: repository, logger: logger);
+  return AuthenticationBloc(
+    iAuthenticationRepository: repository,
+    logger: logger,
+  );
 }
 
 Logger createAppLogger({required LogFilter logFilter}) {

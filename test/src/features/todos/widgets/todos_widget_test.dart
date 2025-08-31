@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,7 +6,6 @@ import 'package:mockito/mockito.dart';
 import 'package:todo_youtube/src/features/authentication/bloc/authentication_bloc.dart';
 import 'package:todo_youtube/src/features/authentication/data/authentication_repository.dart';
 import 'package:todo_youtube/src/features/initialization/model/dependency_container.dart';
-import 'package:todo_youtube/src/features/todos/bloc/todos_bloc.dart';
 import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
 import 'package:todo_youtube/src/features/todos/models/todo.dart';
 import 'package:todo_youtube/src/features/todos/widgets/todos_widget.dart';

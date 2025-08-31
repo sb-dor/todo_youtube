@@ -29,11 +29,19 @@ final class AuthenticationRepositoryImpl implements IAuthenticationRepository {
   final InternetConnectionChecker _internetConnectionChecker;
 
   @override
-  Future<UserModel?> login({required String name, required String email, String? surname}) async {
+  Future<UserModel?> login({
+    required String name,
+    required String email,
+    String? surname,
+  }) async {
     // if (await _internetConnectionChecker.hasAccessToInternet()) {
     //   return _authenticationRemoteDatasource.login(name: name, email: email, surname: surname);
     // } else {
-    return _authenticationLocalDatasource.login(name: name, email: email, surname: surname);
+    return _authenticationLocalDatasource.login(
+      name: name,
+      email: email,
+      surname: surname,
+    );
     // }
   }
 

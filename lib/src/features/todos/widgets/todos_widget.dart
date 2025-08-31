@@ -46,15 +46,21 @@ class _TodosWidgetState extends State<TodosWidget> {
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         elevation: 0.0,
-        title: Text("Your todo app", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Your todo app",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         actions: [
           BlocConsumer<AuthenticationBloc, AuthenticationState>(
             bloc: _authenticationBloc,
             listener: (context, state) {
-              if (state is Authentication$ErrorState || state is Authentication$InitialState) {
+              if (state is Authentication$ErrorState ||
+                  state is Authentication$InitialState) {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => AuthenticationWidget()),
+                  MaterialPageRoute(
+                    builder: (context) => AuthenticationWidget(),
+                  ),
                   (_) => false,
                 );
               }
@@ -71,7 +77,11 @@ class _TodosWidgetState extends State<TodosWidget> {
                 case Authentication$InProgressState():
                   return Padding(
                     padding: const EdgeInsets.only(right: 15),
-                    child: SizedBox(width: 15, height: 15, child: CircularProgressIndicator()),
+                    child: SizedBox(
+                      width: 15,
+                      height: 15,
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 case _:
                   return SizedBox.shrink();
@@ -84,7 +94,8 @@ class _TodosWidgetState extends State<TodosWidget> {
         bloc: _todosBloc,
         builder: (context, state) {
           return RefreshIndicator(
-            onRefresh: () async => _todosBloc.add(TodosEvent.load(widget.userModel)),
+            onRefresh: () async =>
+                _todosBloc.add(TodosEvent.load(widget.userModel)),
             child: CustomScrollView(
               slivers: [
                 SliverPadding(
@@ -96,14 +107,18 @@ class _TodosWidgetState extends State<TodosWidget> {
                           child: TextField(
                             key: ValueKey<String>("todo_text_field"),
                             controller: _todoTextController,
-                            decoration: InputDecoration(hintText: "Add new task"),
+                            decoration: InputDecoration(
+                              hintText: "Add new task",
+                            ),
                           ),
                         ),
                         IconButton(
                           key: ValueKey<String>("add_todo_button"),
                           onPressed: () {
                             if (_todoTextController.text.trim().isEmpty) return;
-                            _todosBloc.add(TodosEvent.createTodo(_todoTextController.text));
+                            _todosBloc.add(
+                              TodosEvent.createTodo(_todoTextController.text),
+                            );
                             _todoTextController.clear();
                           },
                           icon: Icon(Icons.add),
@@ -151,7 +166,10 @@ class _TodosWidgetState extends State<TodosWidget> {
                   sliver: SliverToBoxAdapter(
                     child: Text(
                       "Your remaining todos: ${state.getRemainingTodosLength}",
-                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),

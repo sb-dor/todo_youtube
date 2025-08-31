@@ -7,7 +7,8 @@ part 'authentication_event.dart';
 
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     required final IAuthenticationRepository iAuthenticationRepository,
     required final Logger logger,
@@ -18,9 +19,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     //
     on<AuthenticationEvent>(
       (event, emit) => switch (event) {
-        final _Authentication$LoginEvent event => _authentication$LoginEvent(event, emit),
-        final _Authentication$DeleteUserEvent event => _authentication$DeleteUserEvent(event, emit),
-        final _Authentication$LogoutEvent event => _authentication$LogoutEvent(event, emit),
+        final _Authentication$LoginEvent event => _authentication$LoginEvent(
+          event,
+          emit,
+        ),
+        final _Authentication$DeleteUserEvent event =>
+          _authentication$DeleteUserEvent(event, emit),
+        final _Authentication$LogoutEvent event => _authentication$LogoutEvent(
+          event,
+          emit,
+        ),
       },
     );
   }
@@ -61,7 +69,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
       final currentState = state as Authentication$AuthenticatedState;
 
-      final logout = await _iAuthenticationRepository.deleteUser(currentState.userModel.id);
+      final logout = await _iAuthenticationRepository.deleteUser(
+        currentState.userModel.id,
+      );
 
       if (logout) {
         emit(AuthenticationState.initial());
@@ -83,7 +93,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
       final currentState = state as Authentication$AuthenticatedState;
 
-      final logout = await _iAuthenticationRepository.logout(currentState.userModel.id);
+      final logout = await _iAuthenticationRepository.logout(
+        currentState.userModel.id,
+      );
 
       if (logout) {
         emit(AuthenticationState.initial());

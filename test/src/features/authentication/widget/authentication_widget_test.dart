@@ -6,7 +6,6 @@ import 'package:todo_youtube/src/features/authentication/bloc/authentication_blo
 import 'package:todo_youtube/src/features/authentication/data/authentication_repository.dart';
 import 'package:todo_youtube/src/features/authentication/widgets/authentication_widget.dart';
 import 'package:todo_youtube/src/features/initialization/model/dependency_container.dart';
-import 'package:todo_youtube/src/features/todos/bloc/todos_bloc.dart';
 import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
 
 import '../../../../fakes/fake_user.dart';

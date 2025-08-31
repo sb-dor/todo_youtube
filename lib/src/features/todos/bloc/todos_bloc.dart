@@ -46,7 +46,10 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     }
   }
 
-  void _todosCreateTodoEvent(_TodosCreateTodoEvent event, Emitter<TodosState> emit) async {
+  void _todosCreateTodoEvent(
+    _TodosCreateTodoEvent event,
+    Emitter<TodosState> emit,
+  ) async {
     if (state is! TodosCompletedState) return;
     final currentState = state as TodosCompletedState;
 
@@ -73,7 +76,10 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     }
   }
 
-  void _todosDeleteTodoEvent(_TodosDeleteTodoEvent event, Emitter<TodosState> emit) async {
+  void _todosDeleteTodoEvent(
+    _TodosDeleteTodoEvent event,
+    Emitter<TodosState> emit,
+  ) async {
     if (state is! TodosCompletedState) return;
 
     try {
@@ -94,7 +100,10 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     }
   }
 
-  void _todosDoneTodoEvent(_TodosDoneTodoEvent event, Emitter<TodosState> emit) async {
+  void _todosDoneTodoEvent(
+    _TodosDoneTodoEvent event,
+    Emitter<TodosState> emit,
+  ) async {
     if (state is! TodosCompletedState) return;
 
     try {

@@ -8,7 +8,10 @@ class BlocObserverManager extends BlocObserver {
   final Logger _logger;
 
   @override
-  void onTransition(Bloc<Object?, Object?> bloc, Transition<Object?, Object?> transition) {
+  void onTransition(
+    Bloc<Object?, Object?> bloc,
+    Transition<Object?, Object?> transition,
+  ) {
     final logMessage = StringBuffer()
       ..writeln('Bloc: ${bloc.runtimeType}')
       ..writeln('Event: ${transition.event.runtimeType}')
@@ -40,7 +43,12 @@ class BlocObserverManager extends BlocObserver {
       ..writeln(error.toString());
 
     // you can also send bloc errors to server here
-    _logger.log(Level.error, logMessage.toString(), error: error, stackTrace: stackTrace);
+    _logger.log(
+      Level.error,
+      logMessage.toString(),
+      error: error,
+      stackTrace: stackTrace,
+    );
 
     if (kReleaseMode) {
       // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
@@ -51,7 +59,8 @@ class BlocObserverManager extends BlocObserver {
 
   @override
   void onClose(BlocBase bloc) {
-    final logMessage = StringBuffer()..writeln('Closed Bloc: ${bloc.runtimeType}');
+    final logMessage = StringBuffer()
+      ..writeln('Closed Bloc: ${bloc.runtimeType}');
 
     _logger.log(Level.info, logMessage.toString());
     super.onClose(bloc);
@@ -59,7 +68,8 @@ class BlocObserverManager extends BlocObserver {
 
   @override
   void onCreate(BlocBase bloc) {
-    final logMessage = StringBuffer()..writeln('Opened Bloc: ${bloc.runtimeType}');
+    final logMessage = StringBuffer()
+      ..writeln('Opened Bloc: ${bloc.runtimeType}');
 
     _logger.log(Level.info, logMessage.toString());
     super.onCreate(bloc);
@@ -67,5 +77,6 @@ class BlocObserverManager extends BlocObserver {
 }
 
 extension StringExtensions on String {
-  String limit(int length) => length < this.length ? substring(0, length) : this;
+  String limit(int length) =>
+      length < this.length ? substring(0, length) : this;
 }

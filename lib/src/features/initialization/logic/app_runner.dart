@@ -12,7 +12,9 @@ import 'composition_root.dart';
 
 class AppRunner {
   Future<void> run() async {
-    final logger = createAppLogger(logFilter: kReleaseMode ? NoOpLogFilter() : DevelopmentFilter());
+    final logger = createAppLogger(
+      logFilter: kReleaseMode ? NoOpLogFilter() : DevelopmentFilter(),
+    );
     //
     await runZonedGuarded(
       () async {
@@ -43,7 +45,12 @@ class AppRunner {
         }
       },
       (error, stackTrace) {
-        logger.log(Level.error, "Error zone:", error: error, stackTrace: stackTrace);
+        logger.log(
+          Level.error,
+          "Error zone:",
+          error: error,
+          stackTrace: stackTrace,
+        );
         //
         if (kReleaseMode) {
           // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);

@@ -36,10 +36,12 @@ final class TodosDatasourceLocalImpl implements ITodosDatasource {
   Future<List<Todo>> todos(int userId) => _todosDatabaseHelper.todos(userId);
 
   @override
-  Future<bool> createTodo(final Todo todo) => _todosDatabaseHelper.createTodo(todo);
+  Future<bool> createTodo(final Todo todo) =>
+      _todosDatabaseHelper.createTodo(todo);
 
   @override
-  Future<bool> deleteTodo(final String id) => _todosDatabaseHelper.deleteTodo(id);
+  Future<bool> deleteTodo(final String id) =>
+      _todosDatabaseHelper.deleteTodo(id);
 
   @override
   Future<bool> updateTodo(Todo todo) => _todosDatabaseHelper.updateTodo(todo);
