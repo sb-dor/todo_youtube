@@ -40,13 +40,13 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         bloc: _authenticationBloc,
         listener: (context, state) {
-          // if (state is Authentication$AuthenticatedState) {
-          //   Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(builder: (context) => TodosWidget(userModel: state.userModel)),
-          //     (_) => false,
-          //   );
-          // }
+          if (state is Authentication$AuthenticatedState) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => TodosWidget(userModel: state.userModel)),
+              (_) => false,
+            );
+          }
         },
         builder: (context, state) {
           return CustomScrollView(

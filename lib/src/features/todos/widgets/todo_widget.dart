@@ -29,6 +29,7 @@ class TodoWidget extends StatelessWidget {
               ),
               Expanded(child: Text(todo.todo)),
               IconButton(
+                key: ValueKey<String>("todo_delete_${todo.id}"),
                 onPressed: () {
                   todosBloc.add(TodosEvent.deleteTodo(todo));
                 },

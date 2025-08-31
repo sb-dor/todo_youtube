@@ -125,7 +125,6 @@ void main() {
         expect(todosBloc.state, isA<TodosInitialState>());
       });
 
-
       //
       test('event should emit error state due to a local error', () {
         //
@@ -194,7 +193,6 @@ void main() {
 
         expect(todosBloc.state, isA<TodosInitialState>());
       });
-
 
       //
       test('event should emit error state due to a local error', () {

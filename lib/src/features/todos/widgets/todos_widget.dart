@@ -94,11 +94,13 @@ class _TodosWidgetState extends State<TodosWidget> {
                       children: [
                         Expanded(
                           child: TextField(
+                            key: ValueKey<String>("todo_text_field"),
                             controller: _todoTextController,
                             decoration: InputDecoration(hintText: "Add new task"),
                           ),
                         ),
                         IconButton(
+                          key: ValueKey<String>("add_todo_button"),
                           onPressed: () {
                             if (_todoTextController.text.trim().isEmpty) return;
                             _todosBloc.add(TodosEvent.createTodo(_todoTextController.text));
@@ -135,7 +137,11 @@ class _TodosWidgetState extends State<TodosWidget> {
                     itemCount: state.todos.length,
                     itemBuilder: (context, index) {
                       final todo = state.todos[index];
-                      return TodoWidget(todo: todo, todosBloc: _todosBloc);
+                      return TodoWidget(
+                        key: ValueKey<String>("todo_widget_${todo.id}"),
+                        todo: todo,
+                        todosBloc: _todosBloc,
+                      );
                     },
                   ),
                 },

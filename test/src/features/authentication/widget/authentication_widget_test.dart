@@ -39,6 +39,10 @@ void main() {
     dependencyContainerTest = AuthenticationDependencyContainerTest(authenticationBloc);
   });
 
+  tearDownAll(() {
+    authenticationBloc.close();
+  });
+
   group('Authentication widget test', () {
     //
     testWidgets('Find Authentication title from widget', (tester) async {
