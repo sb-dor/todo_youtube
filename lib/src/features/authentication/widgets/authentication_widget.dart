@@ -108,12 +108,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                   ),
                 ),
                 Authentication$AuthenticatedState() => SliverFillRemaining(
-                  child: Center(
-                    child: Text(
-
-                      "Authenticated!",
-                    ),
-                  ),
+                  child: Center(child: Text("Authenticated!")),
                 ),
               },
             ],
