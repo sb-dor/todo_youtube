@@ -12,7 +12,7 @@ import 'package:todo_youtube/src/features/todos/widgets/todos_widget.dart';
 
 import '../../../../fakes/fake_todo.dart';
 import '../../../../fakes/fake_user.dart';
-import '../../../../helper/test_widget_controller.dart';
+import '../../../../helpers/test_widget_controller.dart';
 import '../../authentication/data/authentication_repository_test.mocks.dart' as auth;
 import '../data/todos_repository_test.mocks.dart';
 

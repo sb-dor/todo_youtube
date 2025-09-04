@@ -9,7 +9,7 @@ import 'package:todo_youtube/src/features/initialization/model/dependency_contai
 import 'package:todo_youtube/src/features/todos/data/todos_repository.dart';
 
 import '../../../../fakes/fake_user.dart';
-import '../../../../helper/test_widget_controller.dart';
+import '../../../../helpers/test_widget_controller.dart';
 import '../../todos/data/todos_repository_test.mocks.dart' as todos;
 import '../data/authentication_repository_test.mocks.dart';
 
