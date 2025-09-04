@@ -13,7 +13,7 @@ class UserDatabaseHelper {
     final String? surname,
   }) async {
     final userWhere = (_appDatabase.select(_appDatabase.userTable)
-      ..where((el) => el.email.contains(email) & el.name.contains(name)));
+      ..where((el) => el.email.equals(email) & el.name.equals(name)));
 
     if (surname != null) {
       userWhere.where((el) => el.surname.contains(surname));
