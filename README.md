@@ -18,5 +18,4 @@ This is a **simple Flutter app** built to demonstrate how to combine
 👉 Watch the full tutorial here: [YouTube Link](https://youtu.be/qZJ-pCOOpXk?si=-OgMqTzEpYu7_Cta) 
 
 ## Coverage Report
-📊 [View Live Coverage Report](https://github.com/sb-dor/todo_youtube/blob/main/coverage/html/index.html)
-<iframe src="https://github.com/sb-dor/todo_youtube/blob/main/coverage/html/index.html" width="100%" height="600"></iframe>
+📊 [View Live Coverage Report](https://html-preview.github.io/?url=https://github.com/sb-dor/todo_youtube/blob/main/coverage/html/index.html)
