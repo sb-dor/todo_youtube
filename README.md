@@ -15,4 +15,8 @@ This is a **simple Flutter app** built to demonstrate how to combine
 - Provide a **reference project** for my YouTube viewers
 
 ## YouTube
-👉 Watch the full tutorial here: [YouTube Link](https://youtu.be/qZJ-pCOOpXk?si=-OgMqTzEpYu7_Cta)  
+👉 Watch the full tutorial here: [YouTube Link](https://youtu.be/qZJ-pCOOpXk?si=-OgMqTzEpYu7_Cta) 
+
+## Code Coverage Report
+You can view the generated HTML coverage report here:  
+📄 [View live coverage report](https://github.com/sb-dor/todo_youtube/blob/main/coverage/html/index.html)
